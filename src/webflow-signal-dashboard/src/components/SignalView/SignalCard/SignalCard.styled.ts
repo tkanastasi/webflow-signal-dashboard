@@ -59,6 +59,7 @@ export const SignalCardAssetCategory = styled.span`
   color: #999;
   font-size: 0.75rem;
   line-height: 1rem;
+  text-transform: capitalize;
 `;
 
 /* signal-card_status */
