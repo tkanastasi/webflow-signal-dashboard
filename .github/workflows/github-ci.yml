@@ -77,5 +77,25 @@ jobs:
 
     - name: 🚚 Deploy to Webflow
       working-directory: ${{matrix.task.project-path}}
-      run: npx webflow library share --no-input
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        echo "🚚 Deploying Webflow library..."
+        output=$(npx webflow library share --no-input 2>&1) || exit_code=$?
+
+        # Webflow CLI sometimes exits 0 even on failure, so we inspect output
+        if echo "$output" | grep -qi "ERROR:"; then
+          echo "❌ Webflow deploy failed:"
+          echo "$output"
+          exit 1
+        fi
+
+        if [[ ${exit_code:-0} -ne 0 ]]; then
+          echo "❌ Webflow deploy exited with non-zero status:"
+          echo "$output"
+          exit $exit_code
+        fi
+
+        echo "✅ Webflow deploy succeeded"
 
