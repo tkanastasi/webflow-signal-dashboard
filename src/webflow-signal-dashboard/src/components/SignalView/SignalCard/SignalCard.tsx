@@ -28,7 +28,7 @@ import {
     SignalCardTime,
     SignalCardCTA,
 } from "./SignalCard.styled";
-import { formatTimeAgo, round } from "../utils";
+import { formatTimeAgo, round, formatPrice } from "../utils";
 
 const SignalCard: React.FC<SignalItem> = (signal) => {
     return (
@@ -101,21 +101,21 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {round(signal.entry)}
+                            {formatPrice(signal.entry)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
 
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {round(signal.sl)}
+                            {formatPrice(signal.sl)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
 
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {round(signal.tp)}
+                            {formatPrice(signal.tp)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
                 </SignalCardLevelsGrid>

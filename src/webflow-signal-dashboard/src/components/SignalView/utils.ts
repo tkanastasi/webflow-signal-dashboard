@@ -2,6 +2,26 @@
 export function round(v: number) {
     return v.toFixed(4);
 }
+export function formatPrice(value: number) {
+    if (value >= 1000) {
+        return new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(value);
+    }
+
+    if (value >= 1) {
+        return new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 4,
+        }).format(value);
+    }
+
+    return new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: 4,
+        maximumFractionDigits: 6,
+    }).format(value);
+}
 
 export function formatTimeAgo(date: string) {
     const seconds = Math.floor(
