@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SignalViewContainer = styled.div`
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  gap: 2em;
+  gap: .75rem;
   min-height: 100svh;
   display: grid;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
