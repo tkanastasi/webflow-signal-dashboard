@@ -28,7 +28,7 @@ import {
     SignalCardTime,
     SignalCardCTA,
 } from "./SignalCard.styled";
-import { formatTimeAgo, round, formatPrice } from "../utils";
+import { formatTimeAgo, formatPrice } from "../utils";
 
 const SignalCard: React.FC<SignalItem> = (signal) => {
     return (
