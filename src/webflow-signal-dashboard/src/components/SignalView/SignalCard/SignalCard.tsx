@@ -28,7 +28,7 @@ import {
     SignalCardTime,
     SignalCardCTA,
 } from "./SignalCard.styled";
-import { formatSymbol, formatTimeAgo, round } from "../utils";
+import { formatTimeAgo, round } from "../utils";
 
 const SignalCard: React.FC<SignalItem> = (signal) => {
     return (
@@ -41,7 +41,7 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
 
                     <SignalCardAssetInfo>
                         <SignalCardAssetSymbol>
-                            {formatSymbol(signal.symbol)}
+                            {signal.symbol}
                         </SignalCardAssetSymbol>
                         <SignalCardAssetCategory>
                             {signal.market}

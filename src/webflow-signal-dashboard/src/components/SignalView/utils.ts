@@ -3,10 +3,6 @@ export function round(v: number) {
     return v.toFixed(4);
 }
 
-export function formatSymbol(s: string) {
-    return `${s.slice(0, 3)}/${s.slice(3)}`;
-}
-
 export function formatTimeAgo(date: string) {
     const seconds = Math.floor(
         (Date.now() - new Date(date).getTime()) / 1000
