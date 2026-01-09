@@ -1,12 +1,11 @@
 {
   "library": {
-    "name": "Webflow Common UI (React)",
+    "name": "Quantio Trading: Code Components",
     "components": [
       "./src/**/*.webflow.@(js|jsx|mjs|ts|tsx)"
     ],
-    "description": "12345",
-    "id": "webflow-common-ui",
-    "bundleConfig": "./webpack.override.js"
+    "description": "Components for Quantio Trading",
+    "id": "webflow-signal-dashboard"
   },
   "telemetry": {
     "global": {
