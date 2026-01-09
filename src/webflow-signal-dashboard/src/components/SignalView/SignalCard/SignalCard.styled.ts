@@ -4,7 +4,6 @@ export const SignalCardContainer = styled.div`
   background-color: #ffffff05;
   border: 1px solid #181818;
   border-radius: 16px;
-  min-width: 256px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
