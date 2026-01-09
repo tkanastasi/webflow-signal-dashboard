@@ -1,0 +1,18 @@
+{
+  "library": {
+    "name": "Webflow Common UI (React)",
+    "components": [
+      "./src/**/*.webflow.@(js|jsx|mjs|ts|tsx)"
+    ],
+    "description": "12345",
+    "id": "webflow-common-ui",
+    "bundleConfig": "./webpack.override.js"
+  },
+  "telemetry": {
+    "global": {
+      "allowTelemetry": false,
+      "lastPrompted": 1760646905480,
+      "version": "1.8.46"
+    }
+  }
+}

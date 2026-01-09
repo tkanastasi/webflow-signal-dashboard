@@ -1,0 +1,45 @@
+{
+	"folders": [
+		{
+			"path": "webflow-signal-dashboard"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "webflow-signal-dashboard\\node_modules\\typescript\\lib",
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"[typescript]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"[json]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"[jsonc]": {
+			"editor.defaultFormatter": "vscode.json-language-features"
+		},
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "file"
+	},
+	"extensions": {
+		"recommendations": [
+			"jasonnutter.search-node-modules",
+			"christian-kohler.npm-intellisense",
+			"christian-kohler.path-intellisense",
+			"dbaeumer.vscode-eslint",
+			"fabianlauer.vs-code-xml-format",
+			"styled-components.vscode-styled-components",
+			"eamodio.gitlens",
+			"sibiraj-s.vscode-scss-formatter",
+			"spmeesseman.vscode-taskexplorer",
+			"foxundermoon.shell-format",
+			"eg2.vscode-npm-script",
+			"kisstkondoros.typelens",
+			"mikestead.dotenv",
+			"wix.vscode-import-cost",
+			"aaron-bond.better-comments",
+			"cmstead.jsrefactor"
+		]
+	}
+}
