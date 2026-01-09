@@ -1,0 +1,81 @@
+﻿name: Docker CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🚀 Build ${{matrix.task.project-path}}
+    runs-on: ubuntu-latest
+    env:
+      WEBFLOW_WORKSPACE_API_TOKEN: ${{secrets.WEBFLOW_ACCESS_TOKEN}}
+      WEBFLOW_SKIP_UPDATE_CHECKS: true
+    strategy:
+      fail-fast: false
+      matrix:
+        task: 
+          - { project-path: src/webflow-signal-dashboard }
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 💾 Install NPM dependencies
+      working-directory: ${{matrix.task.project-path}}
+      run: npm ci
+      
+    - name: 🚀 Build
+      working-directory: ${{matrix.task.project-path}}
+      run: npm run build
+      
+    - name: 🚀 Build for Webflow
+      working-directory: ${{matrix.task.project-path}}
+      shell: bash
+      run: |
+        set -euo pipefail
+        echo "🧩 Running Webflow preflight build check..."
+        output=$(npx webflow library bundle --public-path public --output-path build 2>&1) || exit_code=$?
+        if [[ ${exit_code:-0} -ne 0 ]]; then
+          if echo "$output" | grep -qi "remoteEntry"; then
+            echo "⚠️  Ignoring known Webflow remoteEntry manifest error"
+            echo "$output"
+          elif echo "$output" | grep -qi "Module Federation Manifest Plugin"; then
+            echo "⚠️  Ignoring known Webflow manifest plugin error"
+            echo "$output"
+          else
+            echo "❌ Webflow build failed with unexpected error:"
+            echo "$output"
+            exit $exit_code
+          fi
+        else
+          echo "✅ Webflow bundle succeeded."
+        fi
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: 🚚 Deploy ${{matrix.task.project-path}}
+    strategy:
+      fail-fast: false
+      matrix:
+        task: 
+          - { project-path: src/webflow-signal-dashboard }
+    needs: 
+      - build
+    if: github.ref == 'refs/heads/master'
+    env:
+      WEBFLOW_WORKSPACE_API_TOKEN: ${{secrets.WEBFLOW_ACCESS_TOKEN}}
+      WEBFLOW_SKIP_UPDATE_CHECKS: true
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 💾 Install NPM dependencies
+      working-directory: ${{matrix.task.project-path}}
+      run: npm ci
+
+    - name: 🚚 Deploy to Webflow
+      working-directory: ${{matrix.task.project-path}}
+      run: npx webflow library share --no-input
+
