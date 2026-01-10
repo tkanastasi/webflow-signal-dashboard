@@ -13,33 +13,33 @@
     "@supabase/supabase-js": "^2.90.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "styled-components": "6.1.19"
+    "styled-components": "6.3.3"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.0",
-    "@stylistic/eslint-plugin": "5.5.0",
-    "@types/node": "24.9.2",
-    "@types/react": "19.2.7",
+    "@eslint/js": "9.39.2",
+    "@stylistic/eslint-plugin": "5.7.0",
+    "@types/node": "25.0.6",
+    "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "5.1.0",
-    "@webflow/data-types": "1.0.2",
-    "@webflow/react": "1.0.2",
-    "@webflow/styled-components-utils": "^1.0.0",
-    "@webflow/webflow-cli": "1.8.48",
+    "@vitejs/plugin-react": "5.1.2",
+    "@webflow/data-types": "1.1.0",
+    "@webflow/react": "1.1.0",
+    "@webflow/styled-components-utils": "^1.1.0",
+    "@webflow/webflow-cli": "1.10.0",
     "babel-plugin-react-compiler": "19.1.0-rc.3",
-    "baseline-browser-mapping": "^2.9.13",
-    "eslint": "9.39.0",
-    "eslint-plugin-react": "7.37.4",
+    "baseline-browser-mapping": "^2.9.14",
+    "eslint": "9.39.2",
+    "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-react-refresh": "0.4.24",
-    "globals": "16.5.0",
+    "eslint-plugin-react-refresh": "0.4.26",
+    "globals": "17.0.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.46.2",
-    "vite": "npm:rolldown-vite@7.1.20",
-    "vite-plugin-checker": "0.11.0",
+    "typescript-eslint": "8.52.0",
+    "vite": "npm:rolldown-vite@7.3.1",
+    "vite-plugin-checker": "0.12.0",
     "vite-plugin-svgr": "4.5.0"
   },
   "overrides": {
-    "vite": "npm:rolldown-vite@7.1.20"
+    "vite": "npm:rolldown-vite@7.3.1"
   }
 }
