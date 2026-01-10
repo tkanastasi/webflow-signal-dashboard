@@ -3,6 +3,7 @@ import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-ut
 import { useSignals } from "./useSignals";
 import React from "react";
 import SignalCard from "./SignalCard/SignalCard";
+import SignalViewSkeleton from "../SignalViewSkeleton/SignalViewSkeleton";
 
 export const SignalView = () => {
 
@@ -25,7 +26,7 @@ export const SignalView = () => {
     return (
         <StyledComponentsShadowDomProvider>
             {isPending ? (
-                <div>Loading...</div>
+                <SignalViewSkeleton />
             ) : (
                 !error ? (
                     <SignalViewContainer>
