@@ -11,7 +11,7 @@ import {
     SignalCardLevelsItem,
     SignalCardLevelsLabel,
     SignalCardTop
-} from "../SignalView/SignalCard/SignalCard.styled";
+} from "../SignalCard/SignalCard.styled";
 import { SignalViewContainer } from "../SignalView/SignalView.styled";
 import { SignalCardContainerSkeleton, SignalCardTextSkeleton } from "./SignalViewSkeleton.styled";
 

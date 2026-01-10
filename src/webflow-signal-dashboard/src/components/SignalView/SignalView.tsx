@@ -2,7 +2,7 @@ import { SignalViewContainer } from "./SignalView.styled";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
 import { useSignals } from "./useSignals";
 import React from "react";
-import SignalCard from "./SignalCard/SignalCard";
+import SignalCard from "../SignalCard/SignalCard";
 import SignalViewSkeleton from "../SignalViewSkeleton/SignalViewSkeleton";
 
 export const SignalView = () => {

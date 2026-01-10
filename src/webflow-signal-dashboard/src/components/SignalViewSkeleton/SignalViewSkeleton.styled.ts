@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SignalCardContainer } from "../SignalView/SignalCard/SignalCard.styled";
+import { SignalCardContainer } from "../SignalCard/SignalCard.styled";
 
 export const SignalCardContainerSkeleton = styled(SignalCardContainer)`
   animation: pulsate 2s ease-in-out infinite;
