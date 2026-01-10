@@ -1,6 +1,6 @@
 import { SignalViewContainer } from "./SignalView.styled";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
-import { useSignals } from "./useSignals";
+import { SignalItemType, useSignals } from "./useSignals";
 import React from "react";
 import SignalCard from "../SignalCard/SignalCard";
 import SignalViewSkeleton from "../SignalViewSkeleton/SignalViewSkeleton";
@@ -11,7 +11,7 @@ export const SignalView = () => {
 
     React.useEffect(
         () => {
-            console.warn(signals);
+            signals.length > 0 && console.warn(signals);
         },
         [signals]
     );
@@ -23,17 +23,40 @@ export const SignalView = () => {
         [error]
     );
 
+    const activeSignals = React.useMemo(
+        () => signals.filter(x => x.status === SignalItemType.Active),
+        [signals]
+    );
+
+    const closedSignals = React.useMemo(
+        () => signals.filter(x => x.status === SignalItemType.Closed),
+        [signals]
+    );
+
     return (
         <StyledComponentsShadowDomProvider>
             {isPending ? (
                 <SignalViewSkeleton />
             ) : (
                 !error ? (
-                    <SignalViewContainer>
-                        {signals.map(signal => (
-                            <SignalCard key={signal.id} {...signal} />
-                        ))}
-                    </SignalViewContainer>
+                    <div>
+                        <div style={{ color: "#fff" }}>
+                            Live Action ({activeSignals.length} {activeSignals.length === 1 ? "signal" : "signals"})
+                        </div>
+                        <SignalViewContainer>
+                            {activeSignals.map(signal => (
+                                <SignalCard key={signal.id} {...signal} />
+                            ))}
+                        </SignalViewContainer>
+                        <div style={{ color: "#fff" }}>
+                            Verified Track Record ({closedSignals.length} {closedSignals.length === 1 ? "signal" : "signals"})
+                        </div>
+                        <SignalViewContainer>
+                            {closedSignals.map(signal => (
+                                <SignalCard key={signal.id} {...signal} />
+                            ))}
+                        </SignalViewContainer>
+                    </div>
                 ) : (
                     <div>Error</div>
                 )

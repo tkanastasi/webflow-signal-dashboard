@@ -1,5 +1,3 @@
-"use server";
-
 import { createClient } from "@supabase/supabase-js";
 import React from "react";
 
@@ -7,7 +5,7 @@ export interface SignalItem {
     id: string;
     symbol: string;
     market: string;
-    status: string;
+    status: SignalItemType;
     side: string;
     timeframe: string;
     trading_style: string;
@@ -15,6 +13,12 @@ export interface SignalItem {
     sl: number;
     tp: number;
     created_at: string;
+}
+
+export enum SignalItemType {
+    Active = "active",
+    Closed = "closed",
+    Pending = "pending",
 }
 
 interface DatabaseSchema {
@@ -66,6 +70,8 @@ export function useSignals() {
     const [signals, setSignals] = React.useState<SignalItem[]>([]);
     const [error, setError] = React.useState<Error | null>(null);
 
+    const [lastUpdate, setLastUpdate] = React.useState<number | null>(null);
+
     const supabase = React.useMemo(
         () => {
             return createClient<DatabaseSchema>(
@@ -76,33 +82,36 @@ export function useSignals() {
         []
     );
 
+    const loadSignals = React.useCallback(
+        async () => {
+            const { data, error } = await supabase
+                .from("signals")
+                .select("*")
+                .order("created_at", { ascending: false })
+                .limit(100);
+
+            if (!!error) {
+                throw error;
+            }
+
+            const result: SignalItem[] = [];
+
+            data?.forEach(x => {
+                if (isSignalItem(x)) {
+                    result.push(x);
+                }
+                else {
+                    throw new Error("Invalid data format", { cause: JSON.stringify(x) });
+                }
+            });
+
+            return result;
+        },
+        [supabase]
+    );
+
     React.useEffect(
         () => {
-            const loadSignals = async () => {
-                const { data, error } = await supabase
-                    .from("signals")
-                    .select("*")
-                    .order("created_at", { ascending: false })
-                // .limit(8);
-
-                if (!!error) {
-                    throw error;
-                }
-
-                const result: SignalItem[] = [];
-
-                data?.forEach(x => {
-                    if (isSignalItem(x)) {
-                        result.push(x);
-                    }
-                    else {
-                        throw new Error("Invalid data format", { cause: JSON.stringify(x) });
-                    }
-                });
-
-                return result;
-            };
-
             togglePending(true);
             setSignals([]);
             setError(null);
@@ -110,6 +119,7 @@ export function useSignals() {
             loadSignals()
                 .then(x => {
                     setSignals(x);
+                    setLastUpdate(Date.now());
                 })
                 .catch(x => {
                     setError(x);
@@ -117,35 +127,92 @@ export function useSignals() {
                 .finally(() => {
                     togglePending(false);
                 });
+        },
+        [loadSignals]
+    );
 
-            const channelInsert = supabase
-                .channel("signals")
+    React.useEffect(
+        () => {
+            const channel = supabase
+                .channel("signals:realtime")
                 .on(
                     "postgres_changes",
                     { event: "INSERT", schema: "public", table: "signals" },
                     payload => {
-                        alert(JSON.stringify(payload));
+                        setLastUpdate(Date.now());
+
+                        const next = payload.new;
+
+                        if (!!next && isSignalItem(next)) {
+                            setSignals(prev => upsertSignal(prev, next));
+                            setLastUpdate(Date.now());
+                        }
                     }
                 )
-                .subscribe();
-
-            const channelUpdate = supabase
-                .channel("signals")
                 .on(
                     "postgres_changes",
                     { event: "UPDATE", schema: "public", table: "signals" },
                     payload => {
-                        alert(JSON.stringify(payload));
+                        console.log("REALTIME EVENT:", payload);
+
+                        const next = payload.new;
+
+                        if (!!next && isSignalItem(next)) {
+                            setSignals(prev => upsertSignal(prev, next));
+                            setLastUpdate(Date.now());
+                        }
                     }
                 )
-                .subscribe();
+                .on(
+                    "postgres_changes",
+                    { event: "DELETE", schema: "public", table: "signals" },
+                    payload => {
+                        console.log("REALTIME EVENT:", payload);
+
+                        const old = payload.old;
+
+                        if (!!old && typeof old.id === "string") {
+                            setSignals(prev => removeSignal(prev, old.id));
+                            setLastUpdate(Date.now());
+                        }
+                    }
+                )
+                .subscribe((status, error) => {
+                    console.warn("Connection status:", status, error);
+                });
 
             return () => {
-                supabase.removeChannel(channelInsert);
-                supabase.removeChannel(channelUpdate);
+                supabase.removeChannel(channel);
             };
         },
         [supabase]
+    );
+
+    React.useEffect(
+        () => {
+            const intervalId = window.setInterval(
+                () => {
+                    const now = Date.now();
+
+                    if (lastUpdate !== null && lastUpdate + 60000 < now) {
+                        loadSignals()
+                            .then(x => {
+                                setSignals(x);
+                                setLastUpdate(Date.now());
+                            })
+                            .catch(x => {
+                                setError(x);
+                            });
+                    }
+                },
+                10000
+            );
+
+            return () => {
+                window.clearInterval(intervalId);
+            };
+        },
+        [lastUpdate, loadSignals]
     );
 
     return {
@@ -153,4 +220,26 @@ export function useSignals() {
         signals,
         error,
     };
+}
+
+function upsertSignal(
+    prev: SignalItem[],
+    next: SignalItem
+): SignalItem[] {
+    const index = prev.findIndex(x => x.id === next.id);
+
+    if (index === -1) {
+        return [next, ...prev];
+    }
+
+    const copy = [...prev];
+    copy[index] = next;
+    return copy;
+}
+
+function removeSignal(
+    prev: SignalItem[],
+    id: string
+): SignalItem[] {
+    return prev.filter(x => x.id !== id);
 }
