@@ -1,13 +1,22 @@
 import { SignalViewContainer } from "./SignalView.styled";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
-import { SignalItemType, useSignals } from "./useSignals";
+import { SignalMarket, SignalType, useSignals } from "./useSignals";
 import React from "react";
 import SignalCard from "../SignalCard/SignalCard";
 import SignalViewSkeleton from "../SignalViewSkeleton/SignalViewSkeleton";
 
-export const SignalView = () => {
+interface SignalViewProps {
+    market: SignalMarket | "All";
+}
 
-    const { isPending, signals, error } = useSignals();
+export const SignalView: React.FC<SignalViewProps> = (props) => {
+
+    const { market } = props;
+
+    const { isPending, signals, error } = useSignals({
+        market: market === "All" ? null : market,
+        limit: 100,
+    });
 
     React.useEffect(
         () => {
@@ -24,19 +33,29 @@ export const SignalView = () => {
     );
 
     const activeSignals = React.useMemo(
-        () => signals.filter(x => x.status === SignalItemType.Active),
+        () => signals.filter(x => x.status === SignalType.Active),
         [signals]
     );
 
     const closedSignals = React.useMemo(
-        () => signals.filter(x => x.status === SignalItemType.Closed),
+        () => signals.filter(x => x.status === SignalType.Closed),
         [signals]
     );
 
     return (
         <StyledComponentsShadowDomProvider>
             {isPending ? (
-                <SignalViewSkeleton />
+                <div>
+                    <div style={{ color: "#fff" }}>
+                        Live Action
+                    </div>
+                    <SignalViewSkeleton />
+
+                    <div style={{ color: "#fff" }}>
+                        Verified Track Record
+                    </div>
+                    <SignalViewSkeleton />
+                </div>
             ) : (
                 !error ? (
                     <div>
@@ -44,21 +63,28 @@ export const SignalView = () => {
                             Live Action ({activeSignals.length} {activeSignals.length === 1 ? "signal" : "signals"})
                         </div>
                         <SignalViewContainer>
-                            {activeSignals.map(signal => (
+                            {activeSignals.length > 0 && activeSignals.map(signal => (
                                 <SignalCard key={signal.id} {...signal} />
                             ))}
+                            {activeSignals.length === 0 && (
+                                <div style={{ color: "#fff" }}>No signals yet</div>
+                            )}
                         </SignalViewContainer>
+
                         <div style={{ color: "#fff" }}>
                             Verified Track Record ({closedSignals.length} {closedSignals.length === 1 ? "signal" : "signals"})
                         </div>
                         <SignalViewContainer>
-                            {closedSignals.map(signal => (
+                            {closedSignals.length > 0 && closedSignals.map(signal => (
                                 <SignalCard key={signal.id} {...signal} />
                             ))}
+                            {closedSignals.length === 0 && (
+                                <div style={{ color: "#fff" }}>No signals yet</div>
+                            )}
                         </SignalViewContainer>
                     </div>
                 ) : (
-                    <div>Error</div>
+                    <div>Something went wrong</div>
                 )
             )}
         </StyledComponentsShadowDomProvider>

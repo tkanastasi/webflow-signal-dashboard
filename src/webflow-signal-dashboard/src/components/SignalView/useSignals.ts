@@ -4,8 +4,8 @@ import React from "react";
 export interface SignalItem {
     id: string;
     symbol: string;
-    market: string;
-    status: SignalItemType;
+    market: SignalMarket;
+    status: SignalType;
     side: string;
     timeframe: string;
     trading_style: string;
@@ -15,14 +15,35 @@ export interface SignalItem {
     created_at: string;
 }
 
-export enum SignalItemType {
+export enum SignalType {
     Active = "active",
     Closed = "closed",
     Pending = "pending",
 }
 
+export enum SignalMarket {
+    Metals = "Metals",
+    Indices = "Indices",
+    Forex = "Forex",
+    Crypto = "Crypto",
+}
+
 interface DatabaseSchema {
-    signals: SignalItem;
+    public: {
+        Tables: {
+            signals: {
+                Row: SignalItem
+                Insert: Omit<SignalItem, "id" | "created_at">
+                Update: Partial<Omit<SignalItem, "id">>
+            }
+        }
+        Views: {}
+        Functions: {}
+        Enums: {
+            signal_status: SignalType,
+            signal_market: SignalMarket,
+        }
+    }
 }
 
 /**
@@ -65,7 +86,10 @@ function isSignalItem(value: unknown): value is SignalItem {
         "created_at" in value && typeof value.created_at === "string";
 };
 
-export function useSignals() {
+export function useSignals(filter: { market: SignalMarket | null, limit: number | null }) {
+
+    const { market, limit } = filter;
+
     const [isPending, togglePending] = React.useState<boolean>(true);
     const [signals, setSignals] = React.useState<SignalItem[]>([]);
     const [error, setError] = React.useState<Error | null>(null);
@@ -84,11 +108,20 @@ export function useSignals() {
 
     const loadSignals = React.useCallback(
         async () => {
-            const { data, error } = await supabase
+            let query = supabase
                 .from("signals")
                 .select("*")
-                .order("created_at", { ascending: false })
-                .limit(100);
+                .order("created_at", { ascending: false });
+
+            if (market !== null) {
+                query = query.ilike("market", market);
+            }
+
+            if (limit !== null) {
+                query = query.limit(limit);
+            }
+
+            const { data, error } = await query;
 
             if (!!error) {
                 throw error;
@@ -107,7 +140,7 @@ export function useSignals() {
 
             return result;
         },
-        [supabase]
+        [limit, market, supabase]
     );
 
     React.useEffect(
@@ -139,7 +172,7 @@ export function useSignals() {
                     "postgres_changes",
                     { event: "INSERT", schema: "public", table: "signals" },
                     payload => {
-                        setLastUpdate(Date.now());
+                        console.log("REALTIME EVENT:", payload);
 
                         const next = payload.new;
 
