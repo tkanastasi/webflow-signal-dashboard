@@ -17,7 +17,7 @@ export function useSignals(filter: { market: SignalMarket | null, limit: number 
         async () => {
             let query = supabase
                 .from("signals")
-                .select("*")
+                .select<"*", SignalItem>()
                 .order("created_at", { ascending: false });
 
             if (market !== null) {

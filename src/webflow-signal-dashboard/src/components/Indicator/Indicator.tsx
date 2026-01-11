@@ -1,11 +1,10 @@
 import React from "react";
-import { useKpi } from "../../services/useKpi";
-import { useSignals } from "../../services/useSignals";
+import { useIndicator } from "../../services/useIndicator";
 
 export enum IndicatorType {
+    MonthlyGrowth = "MonthlyGrowth",
     ProfitFactor = "ProfitFactor",
     WinRate = "WinRate",
-    MonthlyGrowth = "MonthlyGrowth",
 }
 
 interface IndicatorProps {
@@ -16,10 +15,9 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
 
     const { type } = props;
 
-    const { signals } = useSignals({ market: null, limit: null });
-    const kpi = useKpi(signals);
+    const { isPending, value, error } = useIndicator(type);
 
-    if (!kpi) {
+    if (isPending) {
         return (
             <span>
                 Loading...
@@ -27,10 +25,18 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
         );
     }
 
+    if (!!error) {
+        return (
+            <span>
+                [ERROR]
+            </span>
+        );
+    }
+
     if (type === IndicatorType.MonthlyGrowth) {
         return (
             <div>
-                <div>{kpi.monthlyGrowth !== null ? `${kpi.monthlyGrowth.toFixed(1)}%` : "N/A"}</div>
+                <div>{value !== null ? `${value.toFixed(1)}%` : "N/A"}</div>
                 <div>+3.4R Generated This Month</div>
             </div>
         );
@@ -38,7 +44,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
     else if (type === IndicatorType.ProfitFactor) {
         return (
             <div>
-                <div>{kpi.profitFactor !== null ? kpi.profitFactor.toFixed(1) : "N/A"}</div>
+                <div>{value !== null ? value.toFixed(1) : "N/A"}</div>
                 <div>For every $1 loss, we make $2.1</div>
             </div>
         );
@@ -46,7 +52,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
     else if (type === IndicatorType.WinRate) {
         return (
             <div>
-                <div>{kpi.winRate !== null ? `${kpi.winRate.toFixed(1)}%` : "N/A"}</div>
+                <div>{value !== null ? `${value.toFixed(1)}%` : "N/A"}</div>
                 <div>(1,735 wins, 1,112 losses out of 2,847 total trades)</div>
             </div>
         );
@@ -57,3 +63,6 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
 };
 
 export default Indicator;
+
+
+
