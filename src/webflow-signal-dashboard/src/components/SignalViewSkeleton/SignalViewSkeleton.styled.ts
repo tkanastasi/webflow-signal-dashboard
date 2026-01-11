@@ -25,7 +25,6 @@ export const SignalCardTextSkeleton = styled.div<{
   display: inline-block;
   width: ${({ $length }) => $length}ch;
   height: ${({ $height }) => $height};
-  /* vertical-align: middle; */
   user-select: none;
 
   &::before {
