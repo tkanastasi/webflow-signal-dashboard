@@ -36,7 +36,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
     if (type === IndicatorType.MonthlyGrowth) {
         return (
             <div>
-                <div>{value !== null ? `${value.toFixed(1)}%` : "N/A"}</div>
+                <div>{value !== null ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%` : "N/A"}</div>
                 <div>+3.4R Generated This Month</div>
             </div>
         );

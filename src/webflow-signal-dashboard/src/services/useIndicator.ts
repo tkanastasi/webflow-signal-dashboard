@@ -129,6 +129,51 @@ export function useIndicator(type: IndicatorType) {
 
 /**
 select
+date_trunc('month', closed_at) as month,
+sum(case when tp_hit then 1.0 else 0 end)
+-
+sum(case when sl_hit then 0.5 else 0 end)
+as monthly_return_pct
+from signals
+where status = 'closed'
+group by month
+order by month;
+ */
+async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>) {
+    const { data, error } = await supabase
+        .from("signals")
+        .select<"tp_hit, sl_hit, closed_at", { tp_hit: boolean, sl_hit: boolean, closed_at: string | null }>()
+        .eq("status", "closed")
+        .not("closed_at", "is", null);
+
+    if (error) {
+        throw error;
+    }
+
+    if (!data || data.length === 0) {
+        return null;
+    }
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    let growth = 0;
+
+    for (const s of data) {
+        const d = new Date(s.closed_at!);
+
+        if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
+            if (s.tp_hit) growth += 1;
+            if (s.sl_hit) growth -= 0.5;
+        }
+    }
+
+    return growth;
+}
+
+/**
+select
 sum(case when tp_hit then 2 else 0 end)::float
 /
 nullif(sum(case when sl_hit then 1 else 0 end), 0) as profit_factor
@@ -158,51 +203,6 @@ async function fetchProfitFactor(supabase: ReturnType<typeof useSupabase>) {
     }
 
     return loss === 0 ? 0 : profit / loss;
-}
-
-/**
-select
-date_trunc('month', closed_at) as month,
-sum(case when tp_hit then 1.0 else 0 end)
--
-sum(case when sl_hit then 0.5 else 0 end)
-as monthly_return_pct
-from signals
-where status = 'closed'
-group by month
-order by month;
- */
-async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>) {
-    const { data, error } = await supabase
-        .from("signals")
-        .select<"tp_hit, sl_hit, closed_at", { tp_hit: boolean, sl_hit: boolean, closed_at: string | null }>("tp_hit, sl_hit, closed_at")
-        .eq("status", "closed")
-        .not("closed_at", "is", null);
-
-    if (error) {
-        throw error;
-    }
-
-    if (!data || data.length === 0) {
-        return null;
-    }
-
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
-
-    let growth = 0;
-
-    for (const s of data) {
-        const d = new Date(s.closed_at!);
-
-        if (d.getMonth() === currentMonth && d.getFullYear() === currentYear) {
-            if (s.tp_hit) growth += 1;
-            if (s.sl_hit) growth -= 0.5;
-        }
-    }
-
-    return growth * 100;
 }
 
 /**
