@@ -1,5 +1,5 @@
 import React from "react";
-import type { SignalItem, SignalMarket } from "../SignalView/useSignals";
+import type { SignalItem } from "../SignalView/useSignals";
 import {
     SignalCardContainer,
     SignalCardTop,

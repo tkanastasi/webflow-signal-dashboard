@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { SignalMarket } from "../SignalView/useSignals";
 
 export const SignalCardContainer = styled.div`
   background-color: #ffffff05;
