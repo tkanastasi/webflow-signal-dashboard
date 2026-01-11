@@ -1,5 +1,4 @@
 import React from "react";
-import type { SignalItem } from "../../services/useSignals";
 import {
     SignalCardContainer,
     SignalCardTop,
@@ -29,29 +28,30 @@ import {
 } from "./SignalCard.styled";
 import { formatTimeAgo, formatPrice } from "../../services/utils";
 import { TrendIcon } from "../../assets/svg";
+import type { SignalItem } from "../../services/useSupabase";
 
-const SignalCard: React.FC<SignalItem> = (signal) => {
+const SignalCard: React.FC<SignalItem> = (props) => {
     return (
         <SignalCardContainer>
             <SignalCardTop>
                 <SignalCardAsset>
-                    <SignalCardAssetIcon $market={signal.market}>₿</SignalCardAssetIcon>
+                    <SignalCardAssetIcon $market={props.market}>₿</SignalCardAssetIcon>
 
                     <SignalCardAssetInfo>
                         <SignalCardAssetSymbol>
-                            {signal.symbol}
+                            {props.symbol}
                         </SignalCardAssetSymbol>
                         <SignalCardAssetCategory>
-                            {signal.market}
+                            {props.market}
                         </SignalCardAssetCategory>
                     </SignalCardAssetInfo>
                 </SignalCardAsset>
 
-                {signal.status !== "closed" && (
+                {props.status !== "closed" && (
                     <SignalCardStatus>
                         <PulsingDot />
                         <SignalCardStatusText>
-                            {signal.status}
+                            {props.status}
                         </SignalCardStatusText>
                     </SignalCardStatus>
                 )}
@@ -60,24 +60,24 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
             <SignalCardDivider />
 
             <SignalCardAction>
-                <SignalCardActionMain $side={signal.side}>
-                    <SignalCardActionType $side={signal.side}>
-                        {signal.side}
+                <SignalCardActionMain $side={props.side}>
+                    <SignalCardActionType $side={props.side}>
+                        {props.side}
                     </SignalCardActionType>
-                    <SignalCardActionIcon $side={signal.side}>
+                    <SignalCardActionIcon $side={props.side}>
                         <TrendIcon />
                     </SignalCardActionIcon>
                 </SignalCardActionMain>
 
                 <SignalCardActionMeta>
                     <SignalCardActionMetaText>
-                        {signal.timeframe}
+                        {props.timeframe}
                     </SignalCardActionMetaText>
                 </SignalCardActionMeta>
 
                 <SignalCardActionMeta $tiny>
                     <SignalCardActionMetaText>
-                        {signal.trading_style}
+                        {props.trading_style}
                     </SignalCardActionMetaText>
                 </SignalCardActionMeta>
 
@@ -88,21 +88,21 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {formatPrice(signal.entry)}
+                            {formatPrice(props.entry)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
 
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {formatPrice(signal.sl)}
+                            {formatPrice(props.sl)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
 
                     <SignalCardLevelsItem>
                         <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
                         <SignalCardLevelsValue>
-                            {formatPrice(signal.tp)}
+                            {formatPrice(props.tp)}
                         </SignalCardLevelsValue>
                     </SignalCardLevelsItem>
                 </SignalCardLevelsGrid>
@@ -111,8 +111,8 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
             <SignalCardDivider />
 
             <SignalCardFooter>
-                <SignalCardTime title={signal.created_at}>
-                    {formatTimeAgo(signal.created_at)}
+                <SignalCardTime title={props.created_at}>
+                    {formatTimeAgo(props.created_at)}
                 </SignalCardTime>
 
                 <SignalCardCTA>
