@@ -26,7 +26,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
 
     const { isPending, signals, error } = useSignals({
         market: market === "All" ? null : market,
-        limit: 1000,
+        limit: 100,
     });
 
     React.useEffect(
