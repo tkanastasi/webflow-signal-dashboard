@@ -28,7 +28,6 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
         <SignalCardTextSkeleton
             $length={length}
             $height={height}
-            aria-hidden
         />
     );
 };

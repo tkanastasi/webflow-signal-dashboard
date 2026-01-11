@@ -45,9 +45,19 @@ export const SignalViewHeaderIcon = styled.span`
 
 export const SignalViewHeaderText = styled.div`
   color: #fff;
+  line-height: 1.75rem;
+`;
+export const SignalViewHeaderTextH1 = styled(SignalViewHeaderText)`
+  font-weight: 700;
+  font-size: 1.25rem;
+`;
+export const SignalViewHeaderTextH2 = styled(SignalViewHeaderText)`
   font-weight: 600;
   font-size: 1.125rem;
-  line-height: 1.75rem;
+`;
+export const SignalViewHeaderTextH3 = styled(SignalViewHeaderText)`
+  font-weight: 500;
+  font-size: 1rem;
 `;
 
 export const SignalViewHeaderMeta = styled.div`

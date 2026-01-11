@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SignalMarket } from "../SignalView/useSignals";
 
 export const SignalCardContainer = styled.div`
   background-color: #ffffff05;
@@ -26,20 +27,46 @@ export const SignalCardAsset = styled.div`
   align-items: center;
 `;
 
-export const SignalCardAssetIcon = styled.div`
+export const SignalCardAssetIcon = styled.div<{ $market?: string }>`
   width: 2.5rem;
   height: 2.5rem;
-  background-color: #f59e0b26;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   border-radius: 12px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-`;
 
-export const SignalCardAssetIconSymbol = styled.span`
-  color: #f59e0b;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+   ${({ $market }) => {
+    switch ($market?.toLowerCase()) {
+      case "crypto":
+        return `
+          background-color: #f59e0b26;
+          color: #f59e0b;
+        `;
+      case "indices":
+        return `
+          background-color: #2e7eff33;
+          color: #21c0ff;
+        `;
+      case "forex":
+        return `
+          background-color: #6365f148;
+          color: #9968cd;
+        `;
+      case "metals":
+        return `
+          background-color: #eab30826;
+          color: #facc15;
+        `;
+      default:
+        return `
+          background-color: #ffffff10;
+          color: #999;
+        `;
+    }
+  }}
 `;
 
 export const SignalCardAssetInfo = styled.div`

@@ -1,11 +1,10 @@
 import React from "react";
-import type { SignalItem } from "../SignalView/useSignals";
+import type { SignalItem, SignalMarket } from "../SignalView/useSignals";
 import {
     SignalCardContainer,
     SignalCardTop,
     SignalCardAsset,
     SignalCardAssetIcon,
-    SignalCardAssetIconSymbol,
     SignalCardAssetInfo,
     SignalCardAssetSymbol,
     SignalCardAssetCategory,
@@ -36,9 +35,7 @@ const SignalCard: React.FC<SignalItem> = (signal) => {
         <SignalCardContainer>
             <SignalCardTop>
                 <SignalCardAsset>
-                    <SignalCardAssetIcon>
-                        <SignalCardAssetIconSymbol>📈</SignalCardAssetIconSymbol>
-                    </SignalCardAssetIcon>
+                    <SignalCardAssetIcon $market={signal.market}>₿</SignalCardAssetIcon>
 
                     <SignalCardAssetInfo>
                         <SignalCardAssetSymbol>

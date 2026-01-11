@@ -2,7 +2,9 @@ import {
     SignalViewWrapper,
     SignalViewHeaderWrapper,
     SignalViewHeaderIcon,
-    SignalViewHeaderText,
+    SignalViewHeaderTextH1,
+    SignalViewHeaderTextH2,
+    SignalViewHeaderTextH3,
     SignalViewHeaderMeta,
     SignalViewError,
     SignalViewContainer
@@ -24,7 +26,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
 
     const { isPending, signals, error } = useSignals({
         market: market === "All" ? null : market,
-        limit: 100,
+        limit: 1000,
     });
 
     React.useEffect(
@@ -61,7 +63,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
             ) : !error ? (
                 <SignalViewWrapper>
                     <SignalViewHeaderWrapper>
-                        <SignalViewHeaderText>Command Center</SignalViewHeaderText>
+                        <SignalViewHeaderTextH1>Command Center</SignalViewHeaderTextH1>
                         <SignalViewHeaderMeta>
                             {activeSignals.length + closedSignals.length}{" "}
                             {activeSignals.length + closedSignals.length === 1 ? "signal" : "signals"}
@@ -73,7 +75,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
                             <ActivityPulseIcon />
                         </SignalViewHeaderIcon>
 
-                        <SignalViewHeaderText>Live Action</SignalViewHeaderText>
+                        <SignalViewHeaderTextH2>Live Action</SignalViewHeaderTextH2>
 
                         <SignalViewHeaderMeta>{activeSignals.length}{" "} active</SignalViewHeaderMeta>
                     </SignalViewHeaderWrapper>
@@ -84,7 +86,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
                                 <SignalCard key={signal.id} {...signal} />
                             ))
                         ) : (
-                            <SignalViewHeaderText>No signals yet</SignalViewHeaderText>
+                            <SignalViewHeaderTextH3>No signals yet</SignalViewHeaderTextH3>
                         )}
                     </SignalViewContainer>
 
@@ -93,7 +95,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
                             <TrackRecordIcon />
                         </SignalViewHeaderIcon>
 
-                        <SignalViewHeaderText>Verified Track Record</SignalViewHeaderText>
+                        <SignalViewHeaderTextH2>Verified Track Record</SignalViewHeaderTextH2>
 
                         <SignalViewHeaderMeta>{closedSignals.length}{" "} closed</SignalViewHeaderMeta>
                     </SignalViewHeaderWrapper>
@@ -104,7 +106,7 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
                                 <SignalCard key={signal.id} {...signal} />
                             ))
                         ) : (
-                            <SignalViewHeaderText>No signals yet</SignalViewHeaderText>
+                            <SignalViewHeaderTextH3>No signals yet</SignalViewHeaderTextH3>
                         )}
                     </SignalViewContainer>
                 </SignalViewWrapper>
