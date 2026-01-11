@@ -48,17 +48,23 @@ const SignalViewSkeleton: React.FC = () => {
                     <SignalCardLevels>
                         <SignalCardLevelsGrid>
                             <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
+                                <SignalCardLevelsLabel>
+                                    <SkeletonText length={2} />
+                                </SignalCardLevelsLabel>
                                 <SkeletonText length={8} />
                             </SignalCardLevelsItem>
 
                             <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
+                                <SignalCardLevelsLabel>
+                                    <SkeletonText length={2} />
+                                </SignalCardLevelsLabel>
                                 <SkeletonText length={8} />
                             </SignalCardLevelsItem>
 
                             <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
+                                <SignalCardLevelsLabel>
+                                    <SkeletonText length={2} />
+                                </SignalCardLevelsLabel>
                                 <SkeletonText length={8} />
                             </SignalCardLevelsItem>
                         </SignalCardLevelsGrid>

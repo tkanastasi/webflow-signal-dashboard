@@ -21,7 +21,7 @@ export const SignalCardTextSkeleton = styled.div<{ $length: number }>`
   position: relative;
   display: inline-block;
   width: ${({ $length }) => $length}ch;
-  height: 1.25em;
+  height: 16px;
   user-select: none;
 
   &::before {
