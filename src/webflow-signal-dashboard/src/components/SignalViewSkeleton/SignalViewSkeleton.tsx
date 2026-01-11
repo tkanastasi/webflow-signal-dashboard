@@ -17,10 +17,20 @@ import { SignalCardContainerSkeleton, SignalCardTextSkeleton } from "./SignalVie
 
 type SkeletonTextProps = {
     length: number;
+    height: string;
 };
 
-export const SkeletonText: React.FC<SkeletonTextProps> = ({ length }) => {
-    return <SignalCardTextSkeleton $length={length} aria-hidden />;
+export const SkeletonText: React.FC<SkeletonTextProps> = ({
+    length,
+    height,
+}) => {
+    return (
+        <SignalCardTextSkeleton
+            $length={length}
+            $height={height}
+            aria-hidden
+        />
+    );
 };
 
 const SignalViewSkeleton: React.FC = () => {
@@ -33,8 +43,8 @@ const SignalViewSkeleton: React.FC = () => {
                             <SignalCardAssetIcon />
 
                             <SignalCardAssetInfo>
-                                <SkeletonText length={8} />
-                                <SkeletonText length={4} />
+                                <SkeletonText length={8} height="1.5rem" />
+                                <SkeletonText length={4} height="1rem" />
                             </SignalCardAssetInfo>
                         </SignalCardAsset>
                     </SignalCardTop>
@@ -42,39 +52,27 @@ const SignalViewSkeleton: React.FC = () => {
                     <SignalCardDivider />
 
                     <SignalCardAction>
-                        <SkeletonText length={16} />
+                        <SkeletonText length={16} height="1rem" />
                     </SignalCardAction>
 
                     <SignalCardLevels>
                         <SignalCardLevelsGrid>
-                            <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>
-                                    <SkeletonText length={2} />
-                                </SignalCardLevelsLabel>
-                                <SkeletonText length={8} />
-                            </SignalCardLevelsItem>
-
-                            <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>
-                                    <SkeletonText length={2} />
-                                </SignalCardLevelsLabel>
-                                <SkeletonText length={8} />
-                            </SignalCardLevelsItem>
-
-                            <SignalCardLevelsItem>
-                                <SignalCardLevelsLabel>
-                                    <SkeletonText length={2} />
-                                </SignalCardLevelsLabel>
-                                <SkeletonText length={8} />
-                            </SignalCardLevelsItem>
+                            {[0, 1, 2].map((idx) => (
+                                <SignalCardLevelsItem key={idx}>
+                                    <SignalCardLevelsLabel>
+                                        <SkeletonText length={2} height="18px" />
+                                    </SignalCardLevelsLabel>
+                                    <SkeletonText length={8} height="18px" />
+                                </SignalCardLevelsItem>
+                            ))}
                         </SignalCardLevelsGrid>
                     </SignalCardLevels>
 
                     <SignalCardDivider />
 
                     <SignalCardFooter>
-                        <SkeletonText length={4} />
-                        <SkeletonText length={8} />
+                        <SkeletonText length={4} height="15px" />
+                        <SkeletonText length={8} height="23px" />
                     </SignalCardFooter>
                 </SignalCardContainerSkeleton>
             ))}
