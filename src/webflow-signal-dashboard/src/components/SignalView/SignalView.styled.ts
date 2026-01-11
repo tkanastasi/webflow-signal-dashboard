@@ -24,7 +24,7 @@ export const SignalViewContainer = styled.div`
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   
-  @media (min-width: 1500px) {
+  @media (min-width: 1800px) {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 `;
