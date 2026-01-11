@@ -54,7 +54,10 @@ export const SignalView: React.FC<SignalViewProps> = (props) => {
     return (
         <StyledComponentsShadowDomProvider>
             {isPending ? (
-                <SignalViewSkeleton />
+                <div>
+                    <div style={{ height: "5.5rem" }} />
+                    <SignalViewSkeleton />
+                </div>
             ) : !error ? (
                 <SignalViewWrapper>
                     <SignalViewHeaderWrapper>
