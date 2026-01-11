@@ -26,10 +26,10 @@ const SignalViewSkeleton: React.FC = () => {
 
                             <SignalCardAssetInfo>
                                 <SignalCardTextSkeleton>
-                                    XXX/XXX
+                                    XXXX/XXXX
                                 </SignalCardTextSkeleton>
                                 <SignalCardTextSkeleton>
-                                    XXXXXXXXXXXX
+                                    XXXX
                                 </SignalCardTextSkeleton>
                             </SignalCardAssetInfo>
                         </SignalCardAsset>
@@ -39,10 +39,10 @@ const SignalViewSkeleton: React.FC = () => {
 
                     <SignalCardAction>
                         <SignalCardTextSkeleton>
-                            XXX
+                            XXXX
                         </SignalCardTextSkeleton>
                         <SignalCardTextSkeleton>
-                            Xxx Xxxxxxx
+                            XXX XXXXXXXX
                         </SignalCardTextSkeleton>
                     </SignalCardAction>
 
@@ -75,7 +75,7 @@ const SignalViewSkeleton: React.FC = () => {
 
                     <SignalCardFooter>
                         <SignalCardTextSkeleton>
-                            00min ago
+                            00xx ago
                         </SignalCardTextSkeleton>
 
                         <SignalCardTextSkeleton>

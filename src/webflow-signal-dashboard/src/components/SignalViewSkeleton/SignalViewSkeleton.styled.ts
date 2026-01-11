@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { SignalCardContainer } from "../SignalCard/SignalCard.styled";
 
 export const SignalCardContainerSkeleton = styled(SignalCardContainer)`
-  animation: pulsate 2s ease-in-out infinite;
+  animation: loading-pulse 2s ease-in-out infinite;
 
-  @keyframes pulsate {
+  @keyframes loading-pulse {
     0% {
       opacity: 0.75;
     }
@@ -19,18 +19,16 @@ export const SignalCardContainerSkeleton = styled(SignalCardContainer)`
 
 export const SignalCardTextSkeleton = styled.div`
   position: relative;
-  color: transparent;
+  display: inline-block;
+  visibility: hidden;
   user-select: none;
-  -webkit-user-select: none;
 
-  &:after {
+  &::before {
     content: "";
+    visibility: visible;
     position: absolute;
-    top: 10%;
-    bottom: 10%;
-    left: 0%;
-    right: 20%;
+    inset: 10% 20% 10% 0;
     border-radius: 0.25rem;
     background-color: #ffffff10;
   }
-`
+`;
