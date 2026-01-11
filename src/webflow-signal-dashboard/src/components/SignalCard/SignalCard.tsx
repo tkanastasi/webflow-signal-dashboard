@@ -1,5 +1,5 @@
 import React from "react";
-import type { SignalItem } from "../SignalView/useSignals";
+import type { SignalItem } from "../../services/useSignals";
 import {
     SignalCardContainer,
     SignalCardTop,
@@ -27,7 +27,7 @@ import {
     SignalCardTime,
     SignalCardCTA,
 } from "./SignalCard.styled";
-import { formatTimeAgo, formatPrice } from "../SignalView/utils";
+import { formatTimeAgo, formatPrice } from "../../services/utils";
 import { TrendIcon } from "../../assets/svg";
 
 const SignalCard: React.FC<SignalItem> = (signal) => {

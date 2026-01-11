@@ -1,7 +1,7 @@
 import { declareComponent } from "@webflow/react";
 import { SignalView } from "./SignalView";
 import { props } from "@webflow/data-types";
-import { SignalMarket } from "./useSignals";
+import { SignalMarket } from "../../services/useSupabase";
 
 export default declareComponent(SignalView, {
     name: "SignalView",

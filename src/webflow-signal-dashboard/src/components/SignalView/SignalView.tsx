@@ -10,11 +10,12 @@ import {
     SignalViewContainer
 } from "./SignalView.styled";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
-import { SignalMarket, SignalType, useSignals } from "./useSignals";
+import { useSignals } from "../../services/useSignals";
 import React from "react";
 import SignalCard from "../SignalCard/SignalCard";
 import SignalViewSkeleton from "../SignalViewSkeleton/SignalViewSkeleton";
 import { ActivityPulseIcon, TrackRecordIcon } from "../../assets/svg";
+import { SignalType, type SignalMarket } from "../../services/useSupabase";
 
 interface SignalViewProps {
     market: SignalMarket | "All";
