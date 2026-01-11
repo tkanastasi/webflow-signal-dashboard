@@ -17,17 +17,17 @@ export const SignalCardContainerSkeleton = styled(SignalCardContainer)`
   }
 `;
 
-export const SignalCardTextSkeleton = styled.div`
+export const SignalCardTextSkeleton = styled.div<{ $length: number }>`
   position: relative;
   display: inline-block;
-  visibility: hidden;
+  width: ${({ $length }) => $length}ch;
+  height: 1.25em;
   user-select: none;
 
   &::before {
     content: "";
-    visibility: visible;
     position: absolute;
-    inset: 10% 20% 10% 0;
+    inset: 10% 0;
     border-radius: 0.25rem;
     background-color: #ffffff10;
   }
