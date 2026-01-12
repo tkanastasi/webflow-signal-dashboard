@@ -6,7 +6,7 @@ import {
     IndicatorMain,
     IndicatorValue,
     IndicatorSubtext,
-    // SparklineWrapper
+    SparklineWrapper
 } from "./Indicator.styled";
 import { PulsingDot } from "../SignalCard/SignalCard.styled";
 import { SparklineIcon } from "../../assets/svg";
@@ -51,9 +51,9 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
                                     ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
                                     : "N/A"}
                             </IndicatorValue>
-                            {/* <SparklineWrapper> */}
-                            <SparklineIcon />
-                            {/* </SparklineWrapper> */}
+                            <SparklineWrapper>
+                                <SparklineIcon />
+                            </SparklineWrapper>
                         </IndicatorMain>
 
                         <IndicatorSubtext>
