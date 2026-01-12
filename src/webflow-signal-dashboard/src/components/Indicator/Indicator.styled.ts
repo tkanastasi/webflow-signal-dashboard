@@ -28,7 +28,7 @@ export const IndicatorValue = styled.div<{ $positive?: boolean }>`
       filter: brightness(1);
     }
     50% {
-      filter: brightness(0.7);
+      filter: brightness(0.6);
     }
   }
 `;
