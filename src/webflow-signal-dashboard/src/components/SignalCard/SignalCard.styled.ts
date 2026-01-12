@@ -166,7 +166,7 @@ export const SignalCardStatusText = styled.span`
 /* signal-card_divider */
 
 export const SignalCardDivider = styled.div`
-  height: 0.05em;
+  height: 0.05rem;
   background-color: #262626;
   margin-bottom: 0.75rem;
 `;

@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const IndicatorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: .25rem;
+  gap: 0.25rem;
 `;
 
 export const IndicatorMain = styled.div`
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 `;
 
 export const IndicatorValue = styled.div<{ $positive?: boolean }>`
