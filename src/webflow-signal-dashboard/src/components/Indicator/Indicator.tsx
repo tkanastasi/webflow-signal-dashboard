@@ -1,5 +1,5 @@
 import React from "react";
-// import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
+import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
 import { useIndicator } from "../../services/useIndicator";
 import {
     IndicatorContainer,
@@ -96,8 +96,12 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
                 throw new Error(`Not implemented for '${type}'`);
         }
     };
-    /* test */
-    return renderIndicatorContent();
+
+    return (
+        <StyledComponentsShadowDomProvider>
+            {renderIndicatorContent()}
+        </StyledComponentsShadowDomProvider>
+    );
 };
 
 export default Indicator;

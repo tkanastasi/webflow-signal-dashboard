@@ -39,8 +39,6 @@ export const IndicatorSubtext = styled.div`
   color: #8b8b8b;
 `;
 
-/* test */
-
 export const SparklineWrapper = styled.div`
   width: 80px;
   height: 24px;
