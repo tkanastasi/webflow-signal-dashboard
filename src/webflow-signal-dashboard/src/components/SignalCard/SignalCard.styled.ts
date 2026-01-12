@@ -282,6 +282,12 @@ export const SignalCardTime = styled.span`
   line-height: 15px;
 `;
 
+export const SignalCardCTAContainer = styled.div`
+  gap: .375rem;
+  align-items: center;
+  display: flex;
+`;
+
 export const SignalCardCTA = styled.button`
   color: #000;
   background-color: #85efac;
@@ -292,4 +298,39 @@ export const SignalCardCTA = styled.button`
   line-height: 15px;
   border: none;
   cursor: pointer;
+
+  transition:
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background-color: #6ee7a3;
+    }
+    &:active {
+      background-color: #5fd496;
+    }
+`;
+
+export const SignalCardCTAHistory = styled.button`
+  color: #ffffff;
+  background-color: #1a1a1a;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 15px;
+  border: none;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background-color: #202020;
+  }
+
+  &:active {
+    background-color: #262626;
+  }
 `;

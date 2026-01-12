@@ -24,7 +24,9 @@ import {
     SignalCardLevelsValue,
     SignalCardFooter,
     SignalCardTime,
+    SignalCardCTAContainer,
     SignalCardCTA,
+    SignalCardCTAHistory,
 } from "./SignalCard.styled";
 import { formatTimeAgo, formatPrice } from "../../services/utils";
 import { TrendIcon } from "../../assets/svg";
@@ -115,9 +117,13 @@ const SignalCard: React.FC<SignalItem> = (props) => {
                     {formatTimeAgo(props.created_at)}
                 </SignalCardTime>
 
-                <SignalCardCTA>
-                    View Signal
-                </SignalCardCTA>
+                <SignalCardCTAContainer>
+                    <SignalCardCTA>View Signal</SignalCardCTA>
+
+                    {props.status === "closed" && (
+                        <SignalCardCTAHistory>View Execution</SignalCardCTAHistory>
+                    )}
+                </SignalCardCTAContainer>
             </SignalCardFooter>
         </SignalCardContainer>
     );
