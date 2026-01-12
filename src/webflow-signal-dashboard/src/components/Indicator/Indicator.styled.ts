@@ -24,8 +24,12 @@ export const IndicatorValue = styled.div<{ $positive?: boolean }>`
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(0.98); }
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(0.7);
+    }
   }
 `;
 
