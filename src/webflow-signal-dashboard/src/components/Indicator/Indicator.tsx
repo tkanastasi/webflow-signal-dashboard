@@ -22,34 +22,20 @@ interface IndicatorProps {
     type: IndicatorType;
 }
 
-const Indicator: React.FC<IndicatorProps> = (props) => {
-
-    const { type } = props;
+const Indicator: React.FC<IndicatorProps> = ({ type }) => {
 
     const { isPending, value, error } = useIndicator(type);
 
-    if (isPending) {
-        return (
-            <StyledComponentsShadowDomProvider>
+    return (
+        <StyledComponentsShadowDomProvider>
+            {isPending ? (
                 <IndicatorContainer>
                     <SkeletonText length={8} height="2rem" />
                     <SkeletonText length={16} height="13px" />
                 </IndicatorContainer>
-            </StyledComponentsShadowDomProvider>
-        );
-    }
-
-    if (!!error) {
-        return (
-            <span>
-                [ERROR]
-            </span>
-        );
-    }
-
-    if (type === IndicatorType.MonthlyGrowth) {
-        return (
-            <StyledComponentsShadowDomProvider>
+            ) : error ? (
+                <span>[ERROR]</span>
+            ) : type === IndicatorType.MonthlyGrowth ? (
                 <IndicatorContainer>
                     <IndicatorMain>
                         <PulsingDot />
@@ -67,12 +53,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
                         +3.4R Generated This Month
                     </IndicatorSubtext>
                 </IndicatorContainer>
-            </StyledComponentsShadowDomProvider>
-        );
-    }
-    else if (type === IndicatorType.ProfitFactor) {
-        return (
-            <StyledComponentsShadowDomProvider>
+            ) : type === IndicatorType.ProfitFactor ? (
                 <IndicatorContainer>
                     <IndicatorMain>
                         <IndicatorValue>
@@ -84,12 +65,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
                         For every $1 loss, we make ${value !== null ? value.toFixed(1) : "N/A"}
                     </IndicatorSubtext>
                 </IndicatorContainer>
-            </StyledComponentsShadowDomProvider>
-        );
-    }
-    else if (type === IndicatorType.WinRate) {
-        return (
-            <StyledComponentsShadowDomProvider>
+            ) : type === IndicatorType.WinRate ? (
                 <IndicatorContainer>
                     <IndicatorMain>
                         <IndicatorValue>
@@ -101,12 +77,9 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
                         (1,735 wins, 1,112 losses out of 2,847 total trades)
                     </IndicatorSubtext>
                 </IndicatorContainer>
-            </StyledComponentsShadowDomProvider>
-        );
-    }
-    else {
-        throw new Error(`Not implemented for '${type}'`);
-    }
+            ) : null}
+        </StyledComponentsShadowDomProvider>
+    );
 };
 
 export default Indicator;
