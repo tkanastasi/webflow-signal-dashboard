@@ -4,7 +4,15 @@ import { SignalView } from './components/SignalView/SignalView'
 function App() {
     return (
         <div>
-            <div>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    padding: "2em"
+                }}
+            >
                 <Indicator type={IndicatorType.MonthlyGrowth} />
                 <Indicator type={IndicatorType.ProfitFactor} />
                 <Indicator type={IndicatorType.WinRate} />
