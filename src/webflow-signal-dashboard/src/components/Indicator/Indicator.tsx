@@ -96,7 +96,7 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
                 throw new Error(`Not implemented for '${type}'`);
         }
     };
-
+    /* test */
     return renderIndicatorContent();
 };
 
