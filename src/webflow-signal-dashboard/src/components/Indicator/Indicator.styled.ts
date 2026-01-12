@@ -19,7 +19,7 @@ export const IndicatorValue = styled.div<{ $positive?: boolean }>`
   line-height: 2rem;
 
   color: ${({ $positive }) =>
-        $positive === false ? "#e14c4c" : "#28af60"};
+    $positive === false ? "#e14c4c" : "#28af60"};
 
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
@@ -35,6 +35,7 @@ export const IndicatorValue = styled.div<{ $positive?: boolean }>`
 
 export const IndicatorSubtext = styled.div`
   font-size: 10px;
+  line-height: 13px;
   color: #8b8b8b;
 `;
 

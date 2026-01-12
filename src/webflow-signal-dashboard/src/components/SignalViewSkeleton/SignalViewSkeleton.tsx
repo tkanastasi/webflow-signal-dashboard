@@ -15,22 +15,14 @@ import {
 import { SignalViewContainer } from "../SignalView/SignalView.styled";
 import { SignalCardContainerSkeleton, SignalCardTextSkeleton } from "./SignalViewSkeleton.styled";
 
-type SkeletonTextProps = {
+export type SkeletonTextProps = {
     length: number;
     height: string;
 };
 
-export const SkeletonText: React.FC<SkeletonTextProps> = ({
-    length,
-    height,
-}) => {
-    return (
-        <SignalCardTextSkeleton
-            $length={length}
-            $height={height}
-        />
-    );
-};
+export const SkeletonText = ({ length, height }: SkeletonTextProps) => (
+    <SignalCardTextSkeleton $length={length} $height={height} />
+);
 
 const SignalViewSkeleton: React.FC = () => {
     return (

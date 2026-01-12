@@ -1,13 +1,16 @@
+import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
 import React from "react";
 import { useIndicator } from "../../services/useIndicator";
 import {
     IndicatorContainer,
     IndicatorMain,
     IndicatorValue,
-    IndicatorSubtext
+    IndicatorSubtext,
+    SparklineWrapper
 } from "./Indicator.styled";
-// import { PulsingDot } from "../SignalCard/SignalCard.styled";
-import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
+import { PulsingDot } from "../SignalCard/SignalCard.styled";
+import { SparklineIcon } from "../../assets/svg";
+import { SkeletonText } from "../SignalViewSkeleton/SignalViewSkeleton";
 
 export enum IndicatorType {
     MonthlyGrowth = "MonthlyGrowth",
@@ -27,9 +30,12 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
 
     if (isPending) {
         return (
-            <span>
-                Loading...
-            </span>
+            <StyledComponentsShadowDomProvider>
+                <IndicatorContainer>
+                    <SkeletonText length={8} height="2rem" />
+                    <SkeletonText length={16} height="13px" />
+                </IndicatorContainer>
+            </StyledComponentsShadowDomProvider>
         );
     }
 
@@ -46,15 +52,15 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
             <StyledComponentsShadowDomProvider>
                 <IndicatorContainer>
                     <IndicatorMain>
-                        {/* <PulsingDot /> */}
+                        <PulsingDot />
                         <IndicatorValue $positive={value !== null && value >= 0}>
                             {value !== null
                                 ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
                                 : "N/A"}
                         </IndicatorValue>
-                        {/* <SparklineWrapper> */}
-                        {/* <SparklineIcon /> */}
-                        {/* </SparklineWrapper> */}
+                        <SparklineWrapper>
+                            <SparklineIcon />
+                        </SparklineWrapper>
                     </IndicatorMain>
 
                     <IndicatorSubtext>
