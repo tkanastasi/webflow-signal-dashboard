@@ -100,57 +100,27 @@ export const SignalCardStatus = styled.div`
 `;
 
 export const PulsingDot = styled.span`
-  position: relative;
+  display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
-  display: inline-block;
+  border-radius: 50%;
+  background-color: #28af60;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
+  box-shadow: 0 0 0 0 rgba(40, 175, 96, 0.65);
 
-    width: 0.5rem;
-    height: 0.5rem;
-
-    background-color: #28af60;
-    border-radius: 50%;
-
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 0.75rem;
-    height: 0.75rem;
-
-    border: 2px solid #28af60;
-    border-radius: 50%;
-
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-
-    animation: pulsate 1.6s ease-out infinite;
-    z-index: 1;
-  }
+  animation: pulsate 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   @keyframes pulsate {
     0% {
-      transform: translate(-50%, -50%) scale(0.5);
-      opacity: 0;
+      box-shadow: 0 0 0 0 rgba(40, 175, 96, 0.65);
     }
-    40% {
-      opacity: 0.4;
+
+    70% {
+      box-shadow: 0 0 0 5px rgba(40, 175, 96, 0);
     }
+
     100% {
-      transform: translate(-50%, -50%) scale(1.1);
-      opacity: 0;
+      box-shadow: 0 0 0 5px rgba(40, 175, 96, 0);
     }
   }
 `;
