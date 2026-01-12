@@ -1,5 +1,14 @@
 import React from "react";
 import { useIndicator } from "../../services/useIndicator";
+import {
+    IndicatorContainer,
+    IndicatorMain,
+    IndicatorValue,
+    IndicatorSubtext,
+    SparklineWrapper,
+} from "./Indicator.styled";
+import { PulsingDot } from "../SignalCard/SignalCard.styled";
+import { SparklineIcon } from "../../assets/svg";
 
 export enum IndicatorType {
     MonthlyGrowth = "MonthlyGrowth",
@@ -35,26 +44,53 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
 
     if (type === IndicatorType.MonthlyGrowth) {
         return (
-            <div>
-                <div>{value !== null ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%` : "N/A"}</div>
-                <div>+3.4R Generated This Month</div>
-            </div>
+            <IndicatorContainer>
+                <IndicatorMain>
+                    <PulsingDot />
+                    <IndicatorValue $positive={value !== null && value >= 0}>
+                        {value !== null
+                            ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
+                            : "N/A"}
+                    </IndicatorValue>
+                    <SparklineWrapper>
+                        <SparklineIcon />
+                    </SparklineWrapper>
+                </IndicatorMain>
+
+                <IndicatorSubtext>
+                    +3.4R Generated This Month
+                </IndicatorSubtext>
+            </IndicatorContainer>
         );
     }
     else if (type === IndicatorType.ProfitFactor) {
         return (
-            <div>
-                <div>{value !== null ? value.toFixed(1) : "N/A"}</div>
-                <div>For every $1 loss, we make $2.1</div>
-            </div>
+            <IndicatorContainer>
+                <IndicatorMain>
+                    <IndicatorValue>
+                        {value !== null ? value.toFixed(1) : "N/A"}
+                    </IndicatorValue>
+                </IndicatorMain>
+
+                <IndicatorSubtext>
+                    For every $1 loss, we make ${value !== null ? value.toFixed(1) : "N/A"}
+                </IndicatorSubtext>
+            </IndicatorContainer>
         );
     }
     else if (type === IndicatorType.WinRate) {
         return (
-            <div>
-                <div>{value !== null ? `${value.toFixed(1)}%` : "N/A"}</div>
-                <div>(1,735 wins, 1,112 losses out of 2,847 total trades)</div>
-            </div>
+            <IndicatorContainer>
+                <IndicatorMain>
+                    <IndicatorValue>
+                        {value !== null ? `${value.toFixed(1)}%` : "N/A"}
+                    </IndicatorValue>
+                </IndicatorMain>
+
+                <IndicatorSubtext>
+                    (1,735 wins, 1,112 losses out of 2,847 total trades)
+                </IndicatorSubtext>
+            </IndicatorContainer>
         );
     }
     else {
@@ -63,6 +99,3 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
 };
 
 export default Indicator;
-
-
-

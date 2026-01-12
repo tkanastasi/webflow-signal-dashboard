@@ -4,7 +4,7 @@ import { SignalView } from './components/SignalView/SignalView'
 function App() {
     return (
         <div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <div>
                 <Indicator type={IndicatorType.MonthlyGrowth} />
                 <Indicator type={IndicatorType.ProfitFactor} />
                 <Indicator type={IndicatorType.WinRate} />

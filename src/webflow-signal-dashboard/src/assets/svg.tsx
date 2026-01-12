@@ -46,3 +46,52 @@ export const TrackRecordIcon: React.FC<IconProps> = (props) => (
         <path d="M12 7v5l4 2" />
     </svg>
 );
+
+export const SparklineIcon: React.FC<IconProps> = (props) => (
+    <svg
+        viewBox="0 0 80 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <defs>
+            <linearGradient
+                id="sparklineGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+            >
+                <stop offset="0%" stopColor="#28af60" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#28af60" stopOpacity={1} />
+            </linearGradient>
+        </defs>
+
+        <path
+            d="M 0 24
+               L 4.21 21.6
+               L 8.42 23.04
+               L 12.63 19.2
+               L 16.84 20.16
+               L 21.05 16.8
+               L 25.26 18.24
+               L 29.47 14.4
+               L 33.68 15.36
+               L 37.89 12
+               L 42.11 13.44
+               L 46.32 9.6
+               L 50.53 10.56
+               L 54.74 7.2
+               L 58.95 8.64
+               L 63.16 4.8
+               L 67.37 5.76
+               L 71.58 2.4
+               L 75.79 3.84
+               L 80 0"
+            stroke="url(#sparklineGradient)"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
