@@ -4,11 +4,9 @@ import {
     IndicatorContainer,
     IndicatorMain,
     IndicatorValue,
-    IndicatorSubtext,
-    SparklineWrapper,
+    IndicatorSubtext
 } from "./Indicator.styled";
 import { PulsingDot } from "../SignalCard/SignalCard.styled";
-import { SparklineIcon } from "../../assets/svg";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
 
 export enum IndicatorType {
@@ -54,9 +52,9 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
                                 ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
                                 : "N/A"}
                         </IndicatorValue>
-                        <SparklineWrapper>
-                            <SparklineIcon />
-                        </SparklineWrapper>
+                        {/* <SparklineWrapper> */}
+                        {/* <SparklineIcon /> */}
+                        {/* </SparklineWrapper> */}
                     </IndicatorMain>
 
                     <IndicatorSubtext>
