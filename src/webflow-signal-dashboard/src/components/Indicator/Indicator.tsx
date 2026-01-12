@@ -6,7 +6,7 @@ import {
     IndicatorValue,
     IndicatorSubtext
 } from "./Indicator.styled";
-import { PulsingDot } from "../SignalCard/SignalCard.styled";
+// import { PulsingDot } from "../SignalCard/SignalCard.styled";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
 
 export enum IndicatorType {
@@ -46,7 +46,7 @@ const Indicator: React.FC<IndicatorProps> = (props) => {
             <StyledComponentsShadowDomProvider>
                 <IndicatorContainer>
                     <IndicatorMain>
-                        <PulsingDot />
+                        {/* <PulsingDot /> */}
                         <IndicatorValue $positive={value !== null && value >= 0}>
                             {value !== null
                                 ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
