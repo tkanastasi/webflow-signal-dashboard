@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledComponentsShadowDomProvider } from "@webflow/styled-components-utils";
-import { useIndicator } from "../../services/useIndicator";
+import { MonthlyGrowthIndicatorResult, ProfitFactorIndicatorResult, useIndicator, WinRateIndicatorResult } from "../../services/useIndicator";
 import {
     IndicatorContainer,
     IndicatorMain,
@@ -40,60 +40,65 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
             return <span>[ERROR]</span>;
         }
 
-        switch (type) {
-            case IndicatorType.MonthlyGrowth:
-                return (
-                    <IndicatorContainer>
-                        <IndicatorMain>
-                            <PulsingDot />
-                            <IndicatorValue $positive={value !== null && value >= 0}>
-                                {value !== null
-                                    ? `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`
-                                    : "N/A"}
-                            </IndicatorValue>
-                            <SparklineWrapper>
-                                <SparklineIcon />
-                            </SparklineWrapper>
-                        </IndicatorMain>
+        if (value instanceof MonthlyGrowthIndicatorResult) {
+            return (
+                <IndicatorContainer>
+                    <IndicatorMain>
+                        <PulsingDot />
+                        <IndicatorValue $positive={value !== null && value.growth >= 0}>
+                            {value.growth !== null
+                                ? `${value.growth >= 0 ? "+" : ""}${value.growth.toFixed(1)}%`
+                                : "N/A"}
+                        </IndicatorValue>
+                        <SparklineWrapper>
+                            <SparklineIcon />
+                        </SparklineWrapper>
+                    </IndicatorMain>
 
-                        <IndicatorSubtext>
-                            +3.4R Generated This Month
-                        </IndicatorSubtext>
-                    </IndicatorContainer>
-                );
+                    <IndicatorSubtext>
+                        {value.totalR !== null
+                            ? `${value.totalR >= 0 ? "+" : ""}${(value.totalR / 100).toFixed(1)}R`
+                            : "N/A"} Generated This Month
+                    </IndicatorSubtext>
+                </IndicatorContainer>
+            );
+        }
+        else if (value instanceof ProfitFactorIndicatorResult) {
+            return (
+                <IndicatorContainer>
+                    <IndicatorMain>
+                        <IndicatorValue>
+                            {value.profitFactor !== null ? value.profitFactor.toFixed(1) : "N/A"}
+                        </IndicatorValue>
+                    </IndicatorMain>
 
-            case IndicatorType.ProfitFactor:
-                return (
-                    <IndicatorContainer>
-                        <IndicatorMain>
-                            <IndicatorValue>
-                                {value !== null ? value.toFixed(1) : "N/A"}
-                            </IndicatorValue>
-                        </IndicatorMain>
+                    <IndicatorSubtext>
+                        For every $1 loss, we make ${value.profitFactor !== null ? value.profitFactor.toFixed(1) : "N/A"}
+                    </IndicatorSubtext>
+                </IndicatorContainer>
+            );
+        }
+        else if (value instanceof WinRateIndicatorResult) {
+            return (
+                <IndicatorContainer>
+                    <IndicatorMain>
+                        <IndicatorValue>
+                            {value.winRate !== null ? `${value.winRate.toFixed(1)}%` : "N/A"}
+                        </IndicatorValue>
+                    </IndicatorMain>
 
-                        <IndicatorSubtext>
-                            For every $1 loss, we make ${value !== null ? value.toFixed(1) : "N/A"}
-                        </IndicatorSubtext>
-                    </IndicatorContainer>
-                );
-
-            case IndicatorType.WinRate:
-                return (
-                    <IndicatorContainer>
-                        <IndicatorMain>
-                            <IndicatorValue>
-                                {value !== null ? `${value.toFixed(1)}%` : "N/A"}
-                            </IndicatorValue>
-                        </IndicatorMain>
-
-                        <IndicatorSubtext>
-                            (1,735 wins, 1,112 losses out of 2,847 total trades)
-                        </IndicatorSubtext>
-                    </IndicatorContainer>
-                );
-
-            default:
-                throw new Error(`Not implemented for '${type}'`);
+                    <IndicatorSubtext>
+                        (
+                        {value.wins !== null ? `${value.wins}` : "N/A"} wins,
+                        {value.losses !== null ? `${value.losses}` : "N/A"} losses out of
+                        {value.total !== null ? `${value.total}` : "N/A"} total trades
+                        )
+                    </IndicatorSubtext>
+                </IndicatorContainer>
+            );
+        }
+        else {
+            throw new Error(`Not implemented for '${type}'`);
         }
     };
 

@@ -2,10 +2,41 @@ import React from "react";
 import { IndicatorType } from "../components/Indicator/Indicator";
 import { useSupabase } from "./useSupabase";
 
+export abstract class BaseIndicatorResult { }
+
+export class MonthlyGrowthIndicatorResult extends BaseIndicatorResult {
+    constructor(
+        public readonly growth: number,
+        public readonly totalR: number,
+    ) {
+        super();
+    }
+}
+
+export class ProfitFactorIndicatorResult extends BaseIndicatorResult {
+    constructor(
+        public readonly profitFactor: number,
+    ) {
+        super();
+    }
+}
+
+export class WinRateIndicatorResult extends BaseIndicatorResult {
+    constructor(
+        public readonly winRate: number,
+        public readonly wins: number,
+        public readonly losses: number,
+        public readonly total: number,
+    ) {
+        super();
+    }
+}
+
+
 export function useIndicator(type: IndicatorType) {
 
     const [isPending, togglePending] = React.useState<boolean>(true);
-    const [value, setValue] = React.useState<number | null>(null);
+    const [value, setValue] = React.useState<BaseIndicatorResult | null>(null);
     const [error, setError] = React.useState<Error | null>(null);
 
     const [lastUpdate, setLastUpdate] = React.useState<number | null>(null);
@@ -13,7 +44,7 @@ export function useIndicator(type: IndicatorType) {
     const supabase = useSupabase();
 
     const calcValue = React.useCallback(
-        async (): Promise<number | null> => {
+        async (): Promise<BaseIndicatorResult | null> => {
             switch (type) {
                 case IndicatorType.MonthlyGrowth:
                     return await fetchMonthlyGrowth(supabase);
@@ -138,8 +169,22 @@ from signals
 where status = 'closed'
 group by month
 order by month;
+
+-----------------------------------
+
+SELECT
+SUM(
+CASE
+WHEN tp_hit = true THEN 2
+WHEN sl_hit = true THEN -1
+ELSE 0
+END
+) AS total_r_last_30_days
+FROM signals
+WHERE status = 'closed'
+AND closed_at >= now() - interval '30 days';
  */
-async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>) {
+async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>): Promise<MonthlyGrowthIndicatorResult | null> {
     const { data, error } = await supabase
         .from("signals")
         .select<"tp_hit, sl_hit, closed_at", { tp_hit: boolean, sl_hit: boolean, closed_at: string | null }>()
@@ -154,11 +199,13 @@ async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>) {
         return null;
     }
 
-    const now = new Date();
-    const currentMonth = now.getMonth();
-    const currentYear = now.getFullYear();
+    const now = Date.now();
+    const currentMonth = new Date(now).getMonth();
+    const currentYear = new Date(now).getFullYear();
+    const last30DaysMs = 30 * 24 * 60 * 60 * 1000;
 
     let growth = 0;
+    let totalR = 0;
 
     for (const s of data) {
         const d = new Date(s.closed_at!);
@@ -167,9 +214,16 @@ async function fetchMonthlyGrowth(supabase: ReturnType<typeof useSupabase>) {
             if (s.tp_hit) growth += 1;
             if (s.sl_hit) growth -= 0.5;
         }
+
+        const closedAt = new Date(s.closed_at!).getTime();
+
+        if (now - closedAt <= last30DaysMs) {
+            if (s.tp_hit) totalR += 2;
+            if (s.sl_hit) totalR -= 1;
+        }
     }
 
-    return growth;
+    return new MonthlyGrowthIndicatorResult(growth, totalR);
 }
 
 /**
@@ -180,7 +234,7 @@ nullif(sum(case when sl_hit then 1 else 0 end), 0) as profit_factor
 from signals
 where status = 'closed';
  */
-async function fetchProfitFactor(supabase: ReturnType<typeof useSupabase>) {
+async function fetchProfitFactor(supabase: ReturnType<typeof useSupabase>): Promise<ProfitFactorIndicatorResult | null> {
     const { data, error } = await supabase
         .from("signals")
         .select<"tp_hit, sl_hit", { tp_hit: boolean, sl_hit: boolean }>()
@@ -202,7 +256,9 @@ async function fetchProfitFactor(supabase: ReturnType<typeof useSupabase>) {
         if (s.sl_hit) loss += 1;
     }
 
-    return loss === 0 ? 0 : profit / loss;
+    const profitFactor = loss === 0 ? 0 : profit / loss;
+
+    return new ProfitFactorIndicatorResult(profitFactor);
 }
 
 /**
@@ -216,11 +272,23 @@ COUNT(*) FILTER (WHERE tp_hit = true)::numeric
 ) AS win_rate_pct
 FROM signals
 WHERE status = 'closed';
+
+----------------------------------------------------
+
+SELECT
+COUNT(*) FILTER (WHERE tp_hit = true) AS wins,
+COUNT(*) FILTER (WHERE sl_hit = true) AS losses,
+COUNT(*) AS total_trades
+FROM signals
+WHERE status = 'closed';
  */
-async function fetchWinRate(supabase: ReturnType<typeof useSupabase>) {
+async function fetchWinRate(supabase: ReturnType<typeof useSupabase>): Promise<WinRateIndicatorResult | null> {
     const { data, error } = await supabase
         .from("signals")
-        .select<"tp_hit", { tp_hit: boolean }>()
+        .select<"tp_hit, sl_hit", {
+            tp_hit: boolean;
+            sl_hit: boolean;
+        }>()
         .eq("status", "closed");
 
     if (error) {
@@ -233,8 +301,14 @@ async function fetchWinRate(supabase: ReturnType<typeof useSupabase>) {
 
     const total = data.length;
     const wins = data.filter(x => x.tp_hit).length;
+    const losses = data.filter(x => x.sl_hit).length;
 
-    return Math.round((wins / total) * 100 * 100) / 100;
+    const winRate = Math.round((wins / total) * 100 * 100) / 100;
+
+    return new WinRateIndicatorResult(
+        winRate,
+        wins,
+        losses,
+        total,
+    );
 }
-
-
