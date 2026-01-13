@@ -229,7 +229,7 @@ export const SignalCardLevelsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   // mobile
-  @media (max-width: 501px) {
+  @media (max-width: 300px) {
     grid-template-columns: repeat(2, 1fr);
   }
   gap: 0.375rem 1rem;
