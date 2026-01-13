@@ -47,7 +47,7 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
                         <PulsingDot />
                         <IndicatorValue $positive={value !== null && value.growth >= 0}>
                             {value.growth !== null
-                                ? `${value.growth >= 0 ? "+" : ""}${value.growth.toFixed(1)}%`
+                                ? `${value.growth >= 0 ? "+" : ""}${(value.growth / 10).toFixed(1)}%`
                                 : "N/A"}
                         </IndicatorValue>
                         <SparklineWrapper>
