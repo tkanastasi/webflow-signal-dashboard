@@ -97,6 +97,12 @@ export const SignalCardStatus = styled.div`
   padding: 0.25rem 0.5rem;
   background-color: #85efac1a;
   border-radius: 10px;
+
+  // mobile
+  @media (max-width: 701px) {
+    padding: 0.5rem;
+    border-radius: 100px;
+  }
 `;
 
 export const PulsingDot = styled.span`
@@ -131,6 +137,11 @@ export const SignalCardStatusText = styled.span`
   font-weight: 700;
   line-height: 1rem;
   text-transform: capitalize;
+
+  // mobile
+  @media (max-width: 701px) {
+    display: none;
+  }
 `;
 
 /* signal-card_divider */
@@ -165,7 +176,8 @@ export const SignalCardActionMain = styled.div<{ $side?: string }>`
 export const SignalCardActionType = styled.span<{ $side?: string }>`
   color: ${({ $side }) =>
     $side === "buy" ? "#28af60" : "#dc2828"};
-  font-size: 0.75rem;
+  font-size: 10px;
+  line-height: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -216,6 +228,10 @@ export const SignalCardLevels = styled.div`
 export const SignalCardLevelsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  // mobile
+  @media (max-width: 701px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   gap: 0.375rem 1rem;
   font-size: 12px;
   line-height: 14px;

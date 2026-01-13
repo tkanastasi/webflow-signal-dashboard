@@ -12,11 +12,11 @@ export const SignalViewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
 
-  @media (min-width: 401px) {
+  @media (min-width: 501px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   
-  @media (min-width: 701px) {
+  @media (min-width: 801px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   
