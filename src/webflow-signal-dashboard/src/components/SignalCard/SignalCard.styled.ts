@@ -228,13 +228,29 @@ export const SignalCardLevels = styled.div`
 export const SignalCardLevelsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "entry sl tp";
   // mobile
-  @media (max-width: 300px) {
+  @media (max-width: 701px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "entry entry"
+      "sl tp";
   }
   gap: 0.375rem 1rem;
   font-size: 12px;
   line-height: 14px;
+`;
+
+export const AreaGridEntry = styled.div`
+  grid-area: entry;
+`;
+
+export const AreaGridTP = styled.div`
+  grid-area: tp;
+`;
+
+export const AreaGridSL = styled.div`
+  grid-area: sl;
 `;
 
 export const SignalCardLevelsItem = styled.div`

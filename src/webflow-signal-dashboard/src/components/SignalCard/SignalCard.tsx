@@ -19,6 +19,9 @@ import {
     SignalCardActionMetaText,
     SignalCardLevels,
     SignalCardLevelsGrid,
+    AreaGridEntry,
+    AreaGridTP,
+    AreaGridSL,
     SignalCardLevelsItem,
     SignalCardLevelsLabel,
     SignalCardLevelsValue,
@@ -87,26 +90,34 @@ const SignalCard: React.FC<SignalItem> = (props) => {
 
             <SignalCardLevels>
                 <SignalCardLevelsGrid>
-                    <SignalCardLevelsItem>
-                        <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
-                        <SignalCardLevelsValue>
-                            {formatPrice(props.entry)}
-                        </SignalCardLevelsValue>
-                    </SignalCardLevelsItem>
 
-                    <SignalCardLevelsItem>
-                        <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
-                        <SignalCardLevelsValue>
-                            {formatPrice(props.sl)}
-                        </SignalCardLevelsValue>
-                    </SignalCardLevelsItem>
+                    <AreaGridEntry>
+                        <SignalCardLevelsItem>
+                            <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
+                            <SignalCardLevelsValue>
+                                {formatPrice(props.entry)}
+                            </SignalCardLevelsValue>
+                        </SignalCardLevelsItem>
+                    </AreaGridEntry>
 
-                    <SignalCardLevelsItem>
-                        <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
-                        <SignalCardLevelsValue>
-                            {formatPrice(props.tp)}
-                        </SignalCardLevelsValue>
-                    </SignalCardLevelsItem>
+                    <AreaGridSL>
+                        <SignalCardLevelsItem>
+                            <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
+                            <SignalCardLevelsValue>
+                                {formatPrice(props.sl)}
+                            </SignalCardLevelsValue>
+                        </SignalCardLevelsItem>
+                    </AreaGridSL>
+
+                    <AreaGridTP>
+                        <SignalCardLevelsItem>
+                            <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
+                            <SignalCardLevelsValue>
+                                {formatPrice(props.tp)}
+                            </SignalCardLevelsValue>
+                        </SignalCardLevelsItem>
+                    </AreaGridTP>
+
                 </SignalCardLevelsGrid>
             </SignalCardLevels>
 
