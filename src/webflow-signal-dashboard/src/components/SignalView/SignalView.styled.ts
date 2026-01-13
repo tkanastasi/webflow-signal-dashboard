@@ -8,31 +8,27 @@ export const SignalViewWrapper = styled.div`
 
 export const SignalViewContainer = styled.div`
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  gap: .75rem;
+  gap: 0.75rem;
   display: grid;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
 
-  @media (min-width: 700px) {
+  @media (min-width: 401px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   
-  @media (min-width: 1000px) {
+  @media (min-width: 701px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   
-  @media (min-width: 1300px) {
+  @media (min-width: 1025px) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  
-  @media (min-width: 1800px) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 `;
 
 export const SignalViewHeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
 `;
 
 export const SignalViewHeaderIcon = styled.span`
@@ -62,12 +58,12 @@ export const SignalViewHeaderTextH3 = styled(SignalViewHeaderText)`
 
 export const SignalViewHeaderMeta = styled.div`
   color: #999999;
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 1rem;
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 1rem;
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 `;
 
 export const SignalViewError = styled.div`
