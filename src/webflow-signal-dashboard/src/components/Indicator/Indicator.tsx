@@ -91,8 +91,7 @@ const Indicator: React.FC<IndicatorProps> = ({ type }) => {
                         (
                         {value.wins !== null ? value.wins : "N/A"}{" "}wins,{" "}
                         {value.losses !== null ? value.losses : "N/A"}{" "}losses out of{" "}
-                        {value.total !== null ? value.total : "N/A"}{" "}total trades
-                        )
+                        {value.total !== null ? value.total : "N/A"}{" "}total trades)
                     </IndicatorSubtext>
                 </IndicatorContainer>
             );
