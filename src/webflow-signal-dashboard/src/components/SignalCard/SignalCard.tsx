@@ -19,9 +19,9 @@ import {
     SignalCardActionMetaText,
     SignalCardLevels,
     SignalCardLevelsGrid,
-    AreaGridEntry,
-    AreaGridTP,
-    AreaGridSL,
+    GridAreaEntry,
+    GridAreaTP,
+    GridAreaSL,
     SignalCardLevelsItem,
     SignalCardLevelsLabel,
     SignalCardLevelsValue,
@@ -91,32 +91,32 @@ const SignalCard: React.FC<SignalItem> = (props) => {
             <SignalCardLevels>
                 <SignalCardLevelsGrid>
 
-                    <AreaGridEntry>
+                    <GridAreaEntry>
                         <SignalCardLevelsItem>
                             <SignalCardLevelsLabel>Entry</SignalCardLevelsLabel>
                             <SignalCardLevelsValue>
                                 {formatPrice(props.entry)}
                             </SignalCardLevelsValue>
                         </SignalCardLevelsItem>
-                    </AreaGridEntry>
+                    </GridAreaEntry>
 
-                    <AreaGridSL>
+                    <GridAreaSL>
                         <SignalCardLevelsItem>
                             <SignalCardLevelsLabel>SL</SignalCardLevelsLabel>
                             <SignalCardLevelsValue>
                                 {formatPrice(props.sl)}
                             </SignalCardLevelsValue>
                         </SignalCardLevelsItem>
-                    </AreaGridSL>
+                    </GridAreaSL>
 
-                    <AreaGridTP>
+                    <GridAreaTP>
                         <SignalCardLevelsItem>
                             <SignalCardLevelsLabel>TP</SignalCardLevelsLabel>
                             <SignalCardLevelsValue>
                                 {formatPrice(props.tp)}
                             </SignalCardLevelsValue>
                         </SignalCardLevelsItem>
-                    </AreaGridTP>
+                    </GridAreaTP>
 
                 </SignalCardLevelsGrid>
             </SignalCardLevels>

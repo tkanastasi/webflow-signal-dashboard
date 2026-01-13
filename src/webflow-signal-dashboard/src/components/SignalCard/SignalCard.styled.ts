@@ -241,15 +241,15 @@ export const SignalCardLevelsGrid = styled.div`
   line-height: 14px;
 `;
 
-export const AreaGridEntry = styled.div`
+export const GridAreaEntry = styled.div`
   grid-area: entry;
 `;
 
-export const AreaGridTP = styled.div`
+export const GridAreaTP = styled.div`
   grid-area: tp;
 `;
 
-export const AreaGridSL = styled.div`
+export const GridAreaSL = styled.div`
   grid-area: sl;
 `;
 
