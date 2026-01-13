@@ -118,7 +118,16 @@ const SignalCard: React.FC<SignalItem> = (props) => {
                 </SignalCardTime>
 
                 <SignalCardCTAContainer>
-                    <SignalCardCTA>View Signal</SignalCardCTA>
+                    <SignalCardCTA
+                        disabled={!props.chart_open_url}
+                        onClick={() => {
+                            if (props.chart_open_url) {
+                                window.open(props.chart_open_url, "_blank");
+                            }
+                        }}
+                    >
+                        View Signal
+                    </SignalCardCTA>
 
                     {props.status === "closed" && (
                         <SignalCardCTAHistory>View Execution</SignalCardCTAHistory>

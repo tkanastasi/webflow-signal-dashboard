@@ -30,6 +30,7 @@ export interface SignalItem {
     closed_at: string | null;
     tp_hit: boolean;
     sl_hit: boolean;
+    chart_open_url: string | null;
 }
 
 export enum SignalType {
@@ -103,5 +104,6 @@ export function isSignalItem(value: unknown): value is SignalItem {
         "created_at" in value && typeof value.created_at === "string" &&
         "closed_at" in value && (value.closed_at === null || typeof value.closed_at === "string") &&
         "tp_hit" in value && typeof value.tp_hit === "boolean" &&
-        "sl_hit" in value && typeof value.sl_hit === "boolean";
+        "sl_hit" in value && typeof value.sl_hit === "boolean" &&
+        "chart_open_url" in value && (value.chart_open_url === null || typeof value.chart_open_url === "string");
 };
