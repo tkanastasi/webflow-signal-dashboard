@@ -80,7 +80,7 @@ export const SignalCardAssetSymbol = styled.span`
   font-size: 1rem;
   line-height: 1.5rem;
   // mobile
-  @media (max-width: 701px) {
+  @media (max-width: 420px) {
     font-size: 0.7rem;
     line-height: 1rem;
   }
