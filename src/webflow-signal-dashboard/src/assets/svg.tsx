@@ -4,6 +4,7 @@ type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const TrendIcon: React.FC<IconProps> = (props) => (
     <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -19,6 +20,7 @@ export const TrendIcon: React.FC<IconProps> = (props) => (
 
 export const ActivityPulseIcon: React.FC<IconProps> = (props) => (
     <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#28af60"
@@ -33,6 +35,7 @@ export const ActivityPulseIcon: React.FC<IconProps> = (props) => (
 
 export const TrackRecordIcon: React.FC<IconProps> = (props) => (
     <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#999999"
