@@ -158,7 +158,7 @@ export const SignalCardTradeResultContainer = styled.div<{ $tradeResult: number 
   // padding: top right bottom left;
   padding: 0.25rem 0.625rem 0.25rem 0.525rem;
   background-color: ${({ $tradeResult }) =>
-    $tradeResult > 0 ? "#28af604d" : "#dc28284d"};
+    $tradeResult > 0 ? "#28af602d" : "#dc28282d"};
   border: 1px solid ${({ $tradeResult }) =>
     $tradeResult > 0 ? "#28af6026" : "#dc282826"};
   border-radius: 10px;
