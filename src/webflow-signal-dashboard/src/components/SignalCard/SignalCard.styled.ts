@@ -149,6 +149,30 @@ export const SignalCardStatusText = styled.span`
   }
 `;
 
+/* signal-card_trade-result */
+
+export const SignalCardTradeResultContainer = styled.div<{ $tradeResult: number }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // padding: top right bottom left;
+  padding: 0.25rem 0.625rem 0.25rem 0.525rem;
+  background-color: ${({ $tradeResult }) =>
+    $tradeResult > 0 ? "#28af604d" : "#dc28284d"};
+  border: 1px solid ${({ $tradeResult }) =>
+    $tradeResult > 0 ? "#28af6026" : "#dc282826"};
+  border-radius: 10px;
+`;
+
+export const SignalCardTradeResultText = styled.span<{ $tradeResult: number }>`
+  font-family: JetBrains Mono, monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: ${({ $tradeResult }) =>
+    $tradeResult > 0 ? "#28af60" : "#dc2828"};
+`;
+
 /* signal-card_divider */
 
 export const SignalCardDivider = styled.div`
@@ -173,9 +197,7 @@ export const SignalCardActionMain = styled.div<{ $side?: string }>`
   border-radius: 0.25rem;
 
   background-color: ${({ $side }) =>
-    $side === "buy"
-      ? "rgba(40, 175, 96, 0.1)"
-      : "rgba(220, 40, 40, 0.1)"};
+    $side === "buy" ? "#28af604d" : "#dc28284d"};
 `;
 
 export const SignalCardActionType = styled.span<{ $side?: string }>`

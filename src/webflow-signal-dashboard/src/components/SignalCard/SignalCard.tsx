@@ -8,6 +8,8 @@ import {
     SignalCardAssetSymbol,
     SignalCardAssetCategory,
     SignalCardStatus,
+    SignalCardTradeResultContainer,
+    SignalCardTradeResultText,
     PulsingDot,
     SignalCardStatusText,
     SignalCardDivider,
@@ -36,6 +38,7 @@ import { TrendIcon } from "../../assets/svg";
 import type { SignalItem } from "../../services/useSupabase";
 
 const SignalCard: React.FC<SignalItem> = (props) => {
+    const tradeResult = props.tp_hit ? 2 : props.sl_hit ? -1 : 0;
     return (
         <SignalCardContainer>
             <SignalCardTop>
@@ -52,13 +55,19 @@ const SignalCard: React.FC<SignalItem> = (props) => {
                     </SignalCardAssetInfo>
                 </SignalCardAsset>
 
-                {props.status !== "closed" && (
+                {props.status !== "closed" ? (
                     <SignalCardStatus>
                         <PulsingDot />
                         <SignalCardStatusText>
                             {props.status}
                         </SignalCardStatusText>
                     </SignalCardStatus>
+                ) : (
+                    <SignalCardTradeResultContainer $tradeResult={tradeResult}>
+                        <SignalCardTradeResultText $tradeResult={tradeResult}>
+                            {tradeResult > 0 ? `+${tradeResult}R` : `${tradeResult}R`}
+                        </SignalCardTradeResultText>
+                    </SignalCardTradeResultContainer>
                 )}
             </SignalCardTop>
 
